@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demoweb.orm.mapper.auto.tbl_article.TblArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    <id column="article_id" property="article_id" jdbcType="VARCHAR" />
+    <result column="article_title" property="article_title" jdbcType="VARCHAR" />
+    <result column="article_status" property="article_status" jdbcType="TINYINT" />
+    <result column="create_time" property="create_time" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modify_time" jdbcType="VARCHAR" />
+    <result column="article_publish_time" property="article_publish_time" jdbcType="VARCHAR" />
+    <result column="type_id" property="type_id" jdbcType="VARCHAR" />
+    <result column="tag_list" property="tag_list" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" extends="BaseResultMap" >
+    <result column="article_content" property="article_content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    article_id, article_title, article_status, create_time, modify_time, article_publish_time, 
+    type_id, tag_list
+  </sql>
+  <sql id="Blob_Column_List" >
+    article_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_article
+    where article_id = #{article_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_article
+    where article_id = #{article_id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticleExample" >
+    delete from tbl_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    insert into tbl_article (article_id, article_title, article_status, 
+      create_time, modify_time, article_publish_time, 
+      type_id, tag_list, article_content
+      )
+    values (#{article_id,jdbcType=VARCHAR}, #{article_title,jdbcType=VARCHAR}, #{article_status,jdbcType=TINYINT}, 
+      #{create_time,jdbcType=VARCHAR}, #{modify_time,jdbcType=VARCHAR}, #{article_publish_time,jdbcType=VARCHAR}, 
+      #{type_id,jdbcType=VARCHAR}, #{tag_list,jdbcType=VARCHAR}, #{article_content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    insert into tbl_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="article_id != null" >
+        article_id,
+      </if>
+      <if test="article_title != null" >
+        article_title,
+      </if>
+      <if test="article_status != null" >
+        article_status,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="modify_time != null" >
+        modify_time,
+      </if>
+      <if test="article_publish_time != null" >
+        article_publish_time,
+      </if>
+      <if test="type_id != null" >
+        type_id,
+      </if>
+      <if test="tag_list != null" >
+        tag_list,
+      </if>
+      <if test="article_content != null" >
+        article_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="article_id != null" >
+        #{article_id,jdbcType=VARCHAR},
+      </if>
+      <if test="article_title != null" >
+        #{article_title,jdbcType=VARCHAR},
+      </if>
+      <if test="article_status != null" >
+        #{article_status,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="modify_time != null" >
+        #{modify_time,jdbcType=VARCHAR},
+      </if>
+      <if test="article_publish_time != null" >
+        #{article_publish_time,jdbcType=VARCHAR},
+      </if>
+      <if test="type_id != null" >
+        #{type_id,jdbcType=VARCHAR},
+      </if>
+      <if test="tag_list != null" >
+        #{tag_list,jdbcType=VARCHAR},
+      </if>
+      <if test="article_content != null" >
+        #{article_content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticleExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_article
+    <set >
+      <if test="record.article_id != null" >
+        article_id = #{record.article_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.article_title != null" >
+        article_title = #{record.article_title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.article_status != null" >
+        article_status = #{record.article_status,jdbcType=TINYINT},
+      </if>
+      <if test="record.create_time != null" >
+        create_time = #{record.create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modify_time != null" >
+        modify_time = #{record.modify_time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.article_publish_time != null" >
+        article_publish_time = #{record.article_publish_time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type_id != null" >
+        type_id = #{record.type_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag_list != null" >
+        tag_list = #{record.tag_list,jdbcType=VARCHAR},
+      </if>
+      <if test="record.article_content != null" >
+        article_content = #{record.article_content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_article
+    set article_id = #{record.article_id,jdbcType=VARCHAR},
+      article_title = #{record.article_title,jdbcType=VARCHAR},
+      article_status = #{record.article_status,jdbcType=TINYINT},
+      create_time = #{record.create_time,jdbcType=VARCHAR},
+      modify_time = #{record.modify_time,jdbcType=VARCHAR},
+      article_publish_time = #{record.article_publish_time,jdbcType=VARCHAR},
+      type_id = #{record.type_id,jdbcType=VARCHAR},
+      tag_list = #{record.tag_list,jdbcType=VARCHAR},
+      article_content = #{record.article_content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_article
+    set article_id = #{record.article_id,jdbcType=VARCHAR},
+      article_title = #{record.article_title,jdbcType=VARCHAR},
+      article_status = #{record.article_status,jdbcType=TINYINT},
+      create_time = #{record.create_time,jdbcType=VARCHAR},
+      modify_time = #{record.modify_time,jdbcType=VARCHAR},
+      article_publish_time = #{record.article_publish_time,jdbcType=VARCHAR},
+      type_id = #{record.type_id,jdbcType=VARCHAR},
+      tag_list = #{record.tag_list,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    update tbl_article
+    <set >
+      <if test="article_title != null" >
+        article_title = #{article_title,jdbcType=VARCHAR},
+      </if>
+      <if test="article_status != null" >
+        article_status = #{article_status,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="modify_time != null" >
+        modify_time = #{modify_time,jdbcType=VARCHAR},
+      </if>
+      <if test="article_publish_time != null" >
+        article_publish_time = #{article_publish_time,jdbcType=VARCHAR},
+      </if>
+      <if test="type_id != null" >
+        type_id = #{type_id,jdbcType=VARCHAR},
+      </if>
+      <if test="tag_list != null" >
+        tag_list = #{tag_list,jdbcType=VARCHAR},
+      </if>
+      <if test="article_content != null" >
+        article_content = #{article_content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where article_id = #{article_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    update tbl_article
+    set article_title = #{article_title,jdbcType=VARCHAR},
+      article_status = #{article_status,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=VARCHAR},
+      modify_time = #{modify_time,jdbcType=VARCHAR},
+      article_publish_time = #{article_publish_time,jdbcType=VARCHAR},
+      type_id = #{type_id,jdbcType=VARCHAR},
+      tag_list = #{tag_list,jdbcType=VARCHAR},
+      article_content = #{article_content,jdbcType=LONGVARCHAR}
+    where article_id = #{article_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demoweb.orm.model.auto.tbl_article.TblArticle" >
+    update tbl_article
+    set article_title = #{article_title,jdbcType=VARCHAR},
+      article_status = #{article_status,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=VARCHAR},
+      modify_time = #{modify_time,jdbcType=VARCHAR},
+      article_publish_time = #{article_publish_time,jdbcType=VARCHAR},
+      type_id = #{type_id,jdbcType=VARCHAR},
+      tag_list = #{tag_list,jdbcType=VARCHAR}
+    where article_id = #{article_id,jdbcType=VARCHAR}
+  </update>
+</mapper>
