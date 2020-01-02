@@ -4,6 +4,7 @@ server:
 spring:
   datasource:
     name: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/ssm?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
@@ -21,6 +22,19 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
 
 ## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
